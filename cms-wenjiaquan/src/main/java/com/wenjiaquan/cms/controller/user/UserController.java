@@ -18,8 +18,8 @@ import com.wenjiaquan.cms.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userservice;
-	@RequestMapping("")
+	@RequestMapping("admin.do")
 	public String login() {
-		return "index";
+		return "admin";
 	}
 }
