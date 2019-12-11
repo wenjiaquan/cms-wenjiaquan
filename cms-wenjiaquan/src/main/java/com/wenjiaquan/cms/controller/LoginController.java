@@ -1,4 +1,5 @@
 package com.wenjiaquan.cms.controller;
+
 /**   
 * @Title: LoginController.java 
 * @Package com.wenjiaquan.cms.controller 
@@ -8,5 +9,5 @@ package com.wenjiaquan.cms.controller;
 * @version V1.0   
 */
 public class LoginController {
-
+	
 }
