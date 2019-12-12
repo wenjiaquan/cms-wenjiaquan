@@ -7,7 +7,7 @@ package com.wenjiaquan.cms.pojo;
 * @date 2019年12月10日 下午6:52:05 
 * @version V1.0   
 */
-public class Vote_content {
+public class VoteContent {
 	private Integer id;
 	private String content;
 	private String title;
@@ -36,12 +36,12 @@ public class Vote_content {
 		this.title = title;
 	}
 
-	public Vote_content() {
+	public VoteContent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vote_content(Integer id, String content, String title) {
+	public VoteContent(Integer id, String content, String title) {
 		super();
 		this.id = id;
 		this.content = content;

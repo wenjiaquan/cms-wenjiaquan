@@ -1,6 +1,6 @@
 package com.wenjiaquan.cms.pojo;
 
-public class Article_vote {
+public class ArticleVote {
 	private Integer id;
 	
 	private Integer article_id;
@@ -41,7 +41,7 @@ public class Article_vote {
 		this.option = option;
 	}
 
-	public Article_vote(Integer id, Integer article_id, Integer user_id, String option) {
+	public ArticleVote(Integer id, Integer article_id, Integer user_id, String option) {
 		super();
 		this.id = id;
 		this.article_id = article_id;
@@ -49,7 +49,7 @@ public class Article_vote {
 		this.option = option;
 	}
 
-	public Article_vote() {
+	public ArticleVote() {
 		super();
 	}
 

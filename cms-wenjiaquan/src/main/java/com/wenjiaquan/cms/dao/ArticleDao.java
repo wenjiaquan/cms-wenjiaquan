@@ -3,23 +3,18 @@ package com.wenjiaquan.cms.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-import com.wenjiaquan.cms.pojo.User;
+import com.wenjiaquan.cms.pojo.Article;
 
 /**   
-* @Title: UserDao.java 
+* @Title: ArticleDao.java 
 * @Package com.wenjiaquan.cms.dao 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author A18ccms A18ccms_gmail_com   
-* @date 2019年12月10日 下午6:21:58 
+* @date 2019年12月12日 下午3:23:33 
 * @version V1.0   
 */
-public interface UserDao {
-	@Select("select * from cms_user")
-	List<User> selectUser();
-	@Select("select count(*) from cms_user where username=#{username} and password=#{password}")
-	int logins(User user);
+public interface ArticleDao {
 	/**
 	 * @Title: selectById   
 	 * @Description: 根据Id，查询对象   
@@ -28,7 +23,7 @@ public interface UserDao {
 	 * @return: User      
 	 * @throws
 	 */
-	User selectById(@Param("id") Integer id);
+	Article selectById(@Param("id") Integer id);
 	/**
 	 * @Title: select   
 	 * @Description: 根据User查询列表  
@@ -37,7 +32,7 @@ public interface UserDao {
 	 * @return: List<User>      
 	 * @throws
 	 */
-	List<User> select(@Param("user") User user);
+	List<Article> select(@Param("article") Article article);
 	/**
 	 * @Title: count   
 	 * @Description: 查询数据条数   
@@ -46,7 +41,7 @@ public interface UserDao {
 	 * @return: int      
 	 * @throws
 	 */
-	int count(@Param("user") User user);
+	int count(@Param("article") Article article);
 	/**
 	 * @Title: insert   
 	 * @Description: 插入一条记录   
@@ -55,7 +50,7 @@ public interface UserDao {
 	 * @return: int      
 	 * @throws
 	 */
-	int insert(@Param("user") User user);
+	int insert(@Param("article") Article article);
 	/**
 	 * @Title: update   
 	 * @Description: 根据Id更新记录 
@@ -64,7 +59,7 @@ public interface UserDao {
 	 * @return: int      
 	 * @throws
 	 */
-	int update(@Param("user") User user);
+	int update(@Param("article") Article article);
 	/**
 	 * @Title: deleteById   
 	 * @Description: 根据Id删除记录   
@@ -83,14 +78,4 @@ public interface UserDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
-	/**
-	 * @Title: updateLocked   
-	 * @Description: 修改locked字段值   
-	 * @param: @param userId
-	 * @param: @param locked
-	 * @param: @return      
-	 * @return: int      
-	 * @throws
-	 */
-	int updateLocked(@Param("userId") Integer userId, @Param("locked")  int locked);
 }

@@ -1,6 +1,6 @@
 package com.wenjiaquan.cms.pojo;
 
-public class Article_tag {
+public class ArticleTag {
 	private Integer aid;
 	
 	private Integer tid;
@@ -26,13 +26,13 @@ public class Article_tag {
 		return "Article_tag [aid=" + aid + ", tid=" + tid + "]";
 	}
 
-	public Article_tag(Integer aid, Integer tid) {
+	public ArticleTag(Integer aid, Integer tid) {
 		super();
 		this.aid = aid;
 		this.tid = tid;
 	}
 
-	public Article_tag() {
+	public ArticleTag() {
 		super();
 	}
 	

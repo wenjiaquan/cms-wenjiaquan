@@ -3,68 +3,63 @@ package com.wenjiaquan.cms.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
-import com.wenjiaquan.cms.pojo.User;
+import com.wenjiaquan.cms.pojo.Settings;
 
 /**   
-* @Title: UserDao.java 
+* @Title: SettingsDao.java 
 * @Package com.wenjiaquan.cms.dao 
 * @Description: TODO(用一句话描述该文件做什么) 
 * @author A18ccms A18ccms_gmail_com   
-* @date 2019年12月10日 下午6:21:58 
+* @date 2019年12月12日 下午3:29:11 
 * @version V1.0   
 */
-public interface UserDao {
-	@Select("select * from cms_user")
-	List<User> selectUser();
-	@Select("select count(*) from cms_user where username=#{username} and password=#{password}")
-	int logins(User user);
+public interface SettingsDao {
 	/**
 	 * @Title: selectById   
 	 * @Description: 根据Id，查询对象   
 	 * @param: @param id
 	 * @param: @return      
-	 * @return: User      
+	 * @return: Settings      
 	 * @throws
 	 */
-	User selectById(@Param("id") Integer id);
+	Settings selectById(@Param("id") Integer id);
 	/**
 	 * @Title: select   
-	 * @Description: 根据User查询列表  
-	 * @param: @param user
+	 * @Description: 根据Settings查询列表  
+	 * @param: @param settings
 	 * @param: @return      
-	 * @return: List<User>      
+	 * @return: List<Settings>      
 	 * @throws
 	 */
-	List<User> select(@Param("user") User user);
+	List<Settings> select(@Param("settings") Settings settings);
 	/**
 	 * @Title: count   
 	 * @Description: 查询数据条数   
-	 * @param: @param user
+	 * @param: @param settings
 	 * @param: @return      
 	 * @return: int      
 	 * @throws
 	 */
-	int count(@Param("user") User user);
+	int count(@Param("settings") Settings settings);
 	/**
 	 * @Title: insert   
 	 * @Description: 插入一条记录   
-	 * @param: @param user
+	 * @param: @param settings
 	 * @param: @return      
 	 * @return: int      
 	 * @throws
 	 */
-	int insert(@Param("user") User user);
+	int insert(@Param("settings") Settings settings);
 	/**
 	 * @Title: update   
 	 * @Description: 根据Id更新记录 
-	 * @param: @param user
+	 * @param: @param settings
 	 * @param: @return      
 	 * @return: int      
 	 * @throws
 	 */
-	int update(@Param("user") User user);
+	int update(@Param("settings") Settings settings);
 	/**
 	 * @Title: deleteById   
 	 * @Description: 根据Id删除记录   
@@ -83,14 +78,4 @@ public interface UserDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
-	/**
-	 * @Title: updateLocked   
-	 * @Description: 修改locked字段值   
-	 * @param: @param userId
-	 * @param: @param locked
-	 * @param: @return      
-	 * @return: int      
-	 * @throws
-	 */
-	int updateLocked(@Param("userId") Integer userId, @Param("locked")  int locked);
 }

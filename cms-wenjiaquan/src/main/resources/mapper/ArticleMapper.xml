@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wenjiaquan.cms.dao.ArticleDao">
+  
+  <select id="select" resultType="Article">
+		select * from cms_article
+	</select>
+	
+	<select id="selectById" resultType="Article">
+		select * from cms_article where id=#{id}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count from cms_article
+	</select>
+	
+	<insert id="insert" parameterType="com.wenjiaquan.cms.pojo.Article">
+		insert into cms_article (title, picture, channel_id, 
+	      category_id, user_id, hits, 
+	      hot, status, deleted, 
+	      created, updated, commentCnt, 
+	      content)
+	    values (#{article.title}, #{article.picture}, #{article.channelId}, 
+	      #{article.categoryId}, #{article.userId}, #{article.hits}, 
+	      #{article.hot}, #{article.status}, #{article.deleted}, 
+	      #{article.created}, #{article.updated}, #{article.commentcnt}, 
+	      #{article.content})
+	</insert>
+	
+	<update id="update">
+		update cms_article
+	    set title = #{article.title},
+	      picture = #{article.picture},
+	      channel_id = #{article.channelId},
+	      category_id = #{article.categoryId},
+	      user_id = #{article.userId},
+	      hits = #{article.hits},
+	      hot = #{article.hot},
+	      status = #{article.status},
+	      deleted = #{article.deleted},
+	      created = #{article.created},
+	      updated = #{article.updated},
+	      commentCnt = #{article.commentcnt},
+	      content = #{article.content}
+	    where id = #{id}
+	</update>
+	
+	<delete id="deleteById">
+		delete from cms_article where id=#{id}
+	</delete>
+	
+	<delete id="deleteByIds">
+		delete from cms_article where id in(${ids})
+	</delete>
+</mapper>
