@@ -1,5 +1,7 @@
 package com.wenjiaquan.cms.service;
 
+import com.wenjiaquan.cms.pojo.User;
+
 /**   
 * @Title: UserService.java 
 * @Package com.wenjiaquan.cms.service 
@@ -9,5 +11,7 @@ package com.wenjiaquan.cms.service;
 * @version V1.0   
 */
 public interface UserService {
+
+	int logins(User user);
 	
 }

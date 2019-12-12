@@ -40,3 +40,9 @@ function reload(params){
 		$(".tab-content").html(res);
 	},"html")
 }
+//打开新页面
+function openPage(url){
+	$.get(url,{},function(res){
+		$(".tab-content").html(res);
+	},"html")
+}

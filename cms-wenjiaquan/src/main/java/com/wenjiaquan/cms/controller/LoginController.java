@@ -1,5 +1,15 @@
 package com.wenjiaquan.cms.controller;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.wenjiaquan.cms.pojo.User;
+import com.wenjiaquan.cms.service.UserService;
+
 /**   
 * @Title: LoginController.java 
 * @Package com.wenjiaquan.cms.controller 
@@ -8,6 +18,19 @@ package com.wenjiaquan.cms.controller;
 * @date 2019年12月10日 下午6:24:11 
 * @version V1.0   
 */
+@Controller
 public class LoginController {
-	
+	@Autowired
+	private UserService userservice;
+	@RequestMapping("/logins")
+	public String logins(Model m,HttpSession session,User user) {
+		int rs=userservice.logins(user);
+		if(rs>0) {
+			session.setAttribute("name", user.getUsername());
+			return "admin/home";
+		}else {
+			m.addAttribute("error","登录失败");
+			return "admin/login";
+		}
+	}
 }

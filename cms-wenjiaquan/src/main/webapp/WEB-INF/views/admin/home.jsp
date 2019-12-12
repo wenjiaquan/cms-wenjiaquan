@@ -8,7 +8,7 @@
 <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 <title>Cms后台登录</title>
 </head>
-<body>
+<body style="background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg');">
 <!-- 头信息 -->
 	<jsp:include page="../common/admin/head.jsp"></jsp:include>
 	<div class="container-fluid">

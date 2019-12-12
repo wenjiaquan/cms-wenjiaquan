@@ -28,4 +28,10 @@ public class UserServiceImpl implements UserService {
 		List<User> list=userdao.selectUser();
 		return list;
 	}
+
+	@Override
+	public int logins(User user) {
+		// TODO Auto-generated method stub
+		return userdao.logins(user);
+	}
 }

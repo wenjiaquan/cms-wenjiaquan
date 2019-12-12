@@ -17,5 +17,7 @@ import com.wenjiaquan.cms.pojo.User;
 public interface UserDao {
 	@Select("select * from cms_user")
 	List<User> selectUser();
+	@Select("select count(*) from cms_user where username=#{username} and password=#{password}")
+	int logins(User user);
 
 }

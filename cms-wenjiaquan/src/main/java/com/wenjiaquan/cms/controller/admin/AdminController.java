@@ -33,4 +33,13 @@ public class AdminController {
 	public String user() {
 		return "admin/user";
 	}
+	@RequestMapping("/article")
+	public String article() {
+		return "admin/article";
+	}
+	
+	@RequestMapping("/settings")
+	public String settings() {
+		return "/admin/settings";
+	}
 }
