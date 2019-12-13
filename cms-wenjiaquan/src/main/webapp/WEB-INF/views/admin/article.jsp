@@ -27,10 +27,10 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
-  	<table class="table">
+  	<table class="table" style="opacity: 0.88" bgcolor="white">
   <thead>
     <tr>
-      <th scope="col"><input type="checkbox" value="" id="defaultCheck1"></th>
+      <th scope="col"><input type="checkbox" value="" id="chkALL" name="chkALL"></th>
       <th scope="col">#</th>
       <th scope="col">标题</th>
       <th scope="col">所属频道</th>
@@ -43,7 +43,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
   </thead>
   <tbody>
     <tr>
-      <th><input type="checkbox" value="" id="defaultCheck1"></th>
+      <th><input type="checkbox" value="" name="chk_list"></th>
       <th scope="row">1</th>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -57,7 +57,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
       </td>
     </tr>
     <tr>
-      <td><input type="checkbox" value="" id="defaultCheck1"></td>
+      <td><input type="checkbox" value="" name="chk_list"></td>
       <td scope="row">2</td>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -71,7 +71,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
       </td>
     </tr>
     <tr>
-      <td><input type="checkbox" value="" id="defaultCheck1"></td>
+      <td><input type="checkbox" value="" name="chk_list"></td>
       <td scope="row">3</td>
       <td>卖电动车赚钱有多难？</td>
       <td>国际</td>
@@ -103,6 +103,7 @@ String htmlData = request.getParameter("content1") != null ? request.getParamete
 	  </ul>
 	</nav>
 </div>
+<script src="<%=request.getContextPath() %>/js/checkbox.js"></script>
 <script>
 	function query(){
 		var params = $("form").serialize();

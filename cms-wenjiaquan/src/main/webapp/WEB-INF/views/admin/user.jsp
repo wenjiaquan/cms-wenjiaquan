@@ -12,23 +12,23 @@
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
-  	<table class="table">
+  	<table class="table" bgcolor="white">
   <thead>
     <tr>
-      <th scope="col" style="color:white;">编号</th>
-      <th scope="col" style="color:white;">登录名称</th>
-      <th scope="col" style="color:white;">用户昵称</th>
-      <th scope="col" style="color:white;">是否禁用</th>
-      <th scope="col" style="color:white;">操作</th>
+      <th scope="col">编号</th>
+      <th scope="col">登录名称</th>
+      <th scope="col">用户昵称</th>
+      <th scope="col">是否禁用</th>
+      <th scope="col">操作</th>
     </tr>
   </thead>
   <tbody>
   	<c:forEach items="${pageInfo.list }" var="item" varStatus="count">
 	  	<tr>
-	      <th scope="row" style="color:white;">${count.count+pageInfo.startRow-1}</th>
-	      <td style="color:white;">${item.username }</td>
-	      <td style="color:white;">${item.nickname }</td>
-	      <td style="color:white;">
+	      <th scope="row">${count.count+pageInfo.startRow-1}</th>
+	      <td>${item.username }</td>
+	      <td>${item.nickname }</td>
+	      <td>
 	      	${item.locked==1?'禁用':'启用'}
 	      </td>
 	      <td style="color:white;">

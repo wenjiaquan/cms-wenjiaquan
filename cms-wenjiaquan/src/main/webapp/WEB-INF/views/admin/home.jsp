@@ -5,8 +5,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 <title>Cms后台登录</title>
+<link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/cms.css" rel="stylesheet">
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/kindeditor/plugins/code/prettify.css" />
+<script charset="utf-8" src="<%=request.getContextPath() %>/kindeditor/kindeditor-all-min.js"></script>
+<script charset="utf-8" src="<%=request.getContextPath() %>/kindeditor/lang/zh-CN.js"></script>
+<script charset="utf-8" src="<%=request.getContextPath() %>/kindeditor/plugins/code/prettify.js"></script>
+<script>
+	KindEditor.ready(function(K) {});
+</script>
 </head>
 <body style="background:url('http://www.wallpaperup.com/uploads/wallpapers/2012/10/21/20181/cad2441dd3252cf53f12154412286ba0.jpg');">
 <!-- 头信息 -->
@@ -27,5 +37,6 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.min.1.12.4.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/cms.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/ajaxfileupload.js"></script>
 </body>
 </html>
