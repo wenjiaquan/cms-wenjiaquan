@@ -55,6 +55,7 @@ public class FileManager {
 	@RequestMapping("upfile")
 	@ResponseBody
 	public FileResult upFile(HttpServletRequest request, @RequestParam("fileName") MultipartFile imgFile) throws FileUploadException {
+		System.out.println(imgFile.getOriginalFilename());
 		return upload(request,imgFile);
 	}
 	@SuppressWarnings("unused")

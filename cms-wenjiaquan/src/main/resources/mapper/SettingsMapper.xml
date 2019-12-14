@@ -3,14 +3,17 @@
 <mapper namespace="com.wenjiaquan.cms.dao.SettingsDao">
 	<select id="select" resultType="Settings">
 		select * from cms_settings
+		select id,site_domain siteDomain, site_name siteName, article_list_size articleListSize, 
+	      slide_size slideSize, admin_username adminUsername, admin_password adminPassword 
+	     from cms_settings
 	</select>
 	
 	<select id="selectById" resultType="Settings">
-		select * from cms_settings where id=#{settings.id}
+		select * from cms_settings where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_settings
+		select count(1) from cms_settings
 	</select>
 	
 	<insert id="insert">

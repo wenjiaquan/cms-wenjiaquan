@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_article
+		select count(1) from cms_article
 	</select>
 	
 	<insert id="insert" parameterType="com.wenjiaquan.cms.pojo.Article">

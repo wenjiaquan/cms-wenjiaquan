@@ -6,11 +6,11 @@
 	</select>
 	
 	<select id="selectById" resultType="VoteContent">
-		select * from cms_vote_content where id=#{voteContent.id}
+		select * from cms_vote_content where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_vote_content
+		select count(1) from cms_vote_content
 	</select>
 	
 	<insert id="insert">

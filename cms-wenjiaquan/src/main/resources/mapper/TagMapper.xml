@@ -6,11 +6,11 @@
 	</select>
 	
 	<select id="selectById" resultType="Tag">
-		select * from cms_tag where id=#{tag.id}
+		select * from cms_tag where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_tag
+		select count(1) from cms_tag
 	</select>
 	
 	<insert id="insert">

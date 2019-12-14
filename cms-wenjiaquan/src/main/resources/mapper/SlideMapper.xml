@@ -6,11 +6,11 @@
 	</select>
 	
 	<select id="selectById" resultType="Slide">
-		select * from cms_slide where id=#{slide.id}
+		select * from cms_slide where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_slide
+		select count(1) from cms_slide
 	</select>
 	
 	<insert id="insert">

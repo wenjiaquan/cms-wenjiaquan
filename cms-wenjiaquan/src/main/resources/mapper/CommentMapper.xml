@@ -6,11 +6,11 @@
 	</select>
 	
 	<select id="selectById" resultType="Comment">
-		select * from cms_comment where id=#{comment.id}
+		select * from cms_comment where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
-		select count from cms_comment
+		select count(1) from cms_comment
 	</select>
 	
 	<insert id="insert">

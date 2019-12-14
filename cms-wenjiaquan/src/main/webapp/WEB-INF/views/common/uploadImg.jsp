@@ -36,6 +36,7 @@
 	        	responseText = responseText.replace(/<.*?>/ig,"");
 	        	var data = JSON.parse(responseText);
 	        	console.log(data);
+	        	alert(data);
 	        	if(data.error==0){
 	        		var imgUrl = data.url;
 	        		console.log(data.url)

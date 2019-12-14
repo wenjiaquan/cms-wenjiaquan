@@ -18,4 +18,18 @@
 			<button type="submit" class="btn btn-primary">保存设置</button>
 		</div>
 	</div>
+	<div class="alert alert-danger" role="alert" style="display: none"></div>
 </form>
+<script type="text/javascript">
+	function save() {
+		$.post("/admin/settings/save",$("form").serialize(),function(res){
+			if(res.result){
+				relaod();
+				$(".alert").html("设置成功");
+				$(".alert").show();
+			}else{
+				alert(res.message);
+			}
+		});
+	}
+</script>
