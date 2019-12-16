@@ -24,6 +24,15 @@
 	<mvc:default-servlet-handler />
 	<!-- mvc注解驱动 -->
 	<mvc:annotation-driven />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<mvc:mapping path="/admin1/**"/>
+			<mvc:exclude-mapping path="/admin/"/>
+			<mvc:exclude-mapping path="/admin/user/login"/>
+			<bean class="com.wenjiaquan.cms.common.AuthInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 	<!-- 文件上传的处理类 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>

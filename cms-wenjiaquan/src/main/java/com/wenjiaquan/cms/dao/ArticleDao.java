@@ -78,4 +78,23 @@ public interface ArticleDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	/**
+	 * @Title: updateStatus   
+	 * @Description: 修改文章状态   
+	 * @param: @param id
+	 * @param: @param status
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
+	int updateStatus(@Param("id") Integer id,@Param("status") Integer status);
+	/**
+	 * @Title: addHot   
+	 * @Description: 热点字段+1   
+	 * @param: @param id
+	 * @param: @return      
+	 * @return: int      
+	 * @throws
+	 */
+	int addHot(@Param("id") Integer id);
 }

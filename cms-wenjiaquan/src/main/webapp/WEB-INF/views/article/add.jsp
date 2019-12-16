@@ -1,29 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-request.setCharacterEncoding("UTF-8");
-String htmlData = request.getParameter("content1") != null ? request.getParameter("content1") : "";
-%>
-<%!
-private String htmlspecialchars(String str) {
-	str = str.replaceAll("&", "&amp;");
-	str = str.replaceAll("<", "&lt;");
-	str = str.replaceAll(">", "&gt;");
-	str = str.replaceAll("\"", "&quot;");
-	return str;
-}
-%>
 <script>
-	function htmlspecialchars(str){
-		str = str.replaceAll("&", "&amp;");
-		str = str.replaceAll("<", "&lt;");
-		str = str.replaceAll(">", "&gt;");
-		str = str.replaceAll("\"", "&quot;");
-		str = str.replaceAll("\n\r", "");
-		return str;
-	}
-	
 	var editor = null;
 	$(document).ready( function(){
 		KindEditor.ready(function(K) {
@@ -71,23 +49,20 @@ private String htmlspecialchars(String str) {
 	<div class="form-group row">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">所属频道</label>
 		<div class="col-sm-6">
-			<select id="inputState" name="channelId" class="form-control">
+			<select id="channelId" name="channelId" onchange="changeCate();" class="form-control">
 		        <option selected>请选择频道...</option>
-		        <option>科技</option>
-		        <option>财经</option>
-		        <option>国际</option>
+		        <c:forEach items="${channelList }" var="item">
+		        	<option value="${item.id }">${item.name }</option>
+		        </c:forEach>
 		      </select>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">所属分类</label>
 		<div class="col-sm-6">
-			<select id="inputState" name="categoryId" class="form-control">
-		        <option selected>请选择频道...</option>
-		        <option>科技</option>
-		        <option>财经</option>
-		        <option>国际</option>
-		      </select>
+			<select id="categoryId" name="categoryId" class="form-control">
+		        <option selected>请选择分类...</option>
+		    </select>
 		</div>
 	</div>
 	<div class="form-group row">
@@ -98,11 +73,21 @@ private String htmlspecialchars(String str) {
 	</div>
 	<div class="form-group row">
 		<div class="col-sm-10">
-			<button type="button" class="btn btn-primary" onclick="save();">保存并提交审核</button>
+			<button type="button" class="btn btn-primary" onclick="save();">保存</button>
+			<button type="button" class="btn btn-primary" onclick="saveAndCheck();">保存并提交审核</button>
 		</div>
 	</div>
 </form>
 <script type="text/javascript">
+	function changeCate() {
+		var channelId = $("#channelId").val();
+		$("#categoryId").html('<option selected>请选择分类...</option>');
+		$.get("/article/getCateList",{channelId:channelId},function(res){
+			for (var i = 0; i < res.data.length; i++) {
+				$("#categoryId").append('<option value="'+res.data[i].id+'" selected>'+res.data[i].name+'</option>');
+			}
+		})
+	}
 	function save(){
 		var formData = new FormData($("#articleForm")[0]);
 		formData.set("content",editor.html());

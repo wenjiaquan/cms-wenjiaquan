@@ -3,7 +3,18 @@
 <mapper namespace="com.wenjiaquan.cms.dao.ArticleDao">
   
   <select id="select" resultType="Article">
-		select * from cms_article
+		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId,channel.name channelName,cate.name categoryName
+		from cms_article article,cms_channel channel,cms_category cate
+		WHERE article.channel_id=channel.id AND article.category_id=cate.id
+		<if test="article.channelId!=null">
+			and article.channel_id = #{article.channelId}
+		</if>
+		<if test="article.title!=null and article.title!=''">
+			and article.title like '%${article.title}%'
+		</if>
+		<if test="article.status!=null">
+			and article.status=#{article.status}
+		</if>
 	</select>
 	
 	<select id="selectById" resultType="Article">
@@ -42,6 +53,20 @@
 	      updated = #{article.updated},
 	      commentCnt = #{article.commentcnt},
 	      content = #{article.content}
+	    where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+		update cms_article
+	    set 
+	      status = #{status}
+	    where id = #{id}
+	</update>
+
+	<update id="addHot">
+		update cms_article
+	    set 
+	      hot = hot+1
 	    where id = #{id}
 	</update>
 	

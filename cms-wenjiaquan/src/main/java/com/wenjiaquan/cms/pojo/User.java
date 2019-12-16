@@ -27,6 +27,10 @@ public class User implements Serializable{
 	private String url;
 	private String score;
 	private int role;
+	@SuppressWarnings("unlikely-arg-type")
+	public boolean isAdmin() {
+    	return "1".equals(getRole());
+    }
 	public Integer getId() {
 		return id;
 	}

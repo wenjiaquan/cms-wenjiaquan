@@ -4,7 +4,7 @@
 <%
 	String feildName = request.getParameter("feildName");
 	String feildValue = request.getParameter("feildValue");
-	feildValue = (feildValue==null || "".equals(feildValue))?"img/upload.jpg":feildValue;
+	feildValue = (feildValue==null || "".equals(feildValue))?"/img/upload.jpg":feildValue;
 %>
 <div class="imgDive">
 	<img src="<%=feildValue %>" class="img-rounded" width="80px;" id="viewImg">

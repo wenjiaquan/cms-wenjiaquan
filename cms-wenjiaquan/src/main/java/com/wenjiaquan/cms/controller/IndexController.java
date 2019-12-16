@@ -1,10 +1,8 @@
 package com.wenjiaquan.cms.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.wenjiaquan.cms.service.UserService;
 
 /**   
 * @Title: UserController.java 
@@ -15,10 +13,17 @@ import com.wenjiaquan.cms.service.UserService;
 * @version V1.0   
 */
 @Controller
-@RequestMapping("/")
 public class IndexController {
 	@RequestMapping("")
 	public String index() {
 		return "index";
+	}
+	@RequestMapping("/{channelId}/{cateId}/.html")
+	public String channel(@PathVariable Integer channelId,@PathVariable Integer cateId) {
+		return "index";
+	}
+	@RequestMapping("article/{id}.html")
+	public String articleDetail(@PathVariable Integer id) {
+		return "article/detail";
 	}
 }

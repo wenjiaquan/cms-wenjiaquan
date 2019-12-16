@@ -78,4 +78,13 @@ public interface CategoryDao {
 	 * @throws
 	 */
 	int deleteByIds(@Param("ids") String ids);
+	/**
+	 * @Title: selectListByChannelId   
+	 * @Description: 根据频道Id，查询列表
+	 * @param: @param channelId
+	 * @param: @return      
+	 * @return: List<Category>      
+	 * @throws
+	 */
+	List<Category> selectListByChannelId(Integer channelId);
 }
