@@ -84,4 +84,5 @@ public class ArticleController {
 	public String update() {
 		return "update";
 	}
+	
 }

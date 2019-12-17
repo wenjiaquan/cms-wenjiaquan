@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   	<form class="form-inline" id="queryForm">
 	  <div class="form-group mx-sm-3 mb-2">
@@ -31,7 +31,7 @@
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
-  	<table class="table" bgcolor="white">
+  	<table class="table">
   <thead>
     <tr>
       <th scope="col"><input type="checkbox" value="" id="chkALL" name="chkALL"></th>
@@ -57,8 +57,7 @@
 	      <td>${item.status==1?"已审核":item.status==0?"未审核":"审核未通过"}</td>
 	      <td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"/></td>
 	      <td>
-	      	<button type="button" class="btn btn-primary" onclick="check('${item.id}')">审核</button>
-	      	<button type="button" class="btn btn-primary" onclick="addHot('${item.id}')">加热</button>
+	      	<button type="button" class="btn btn-primary" onclick="dedit('${item.id}')">编辑</button>
 	      </td>
 	    </tr>
    	</c:forEach>

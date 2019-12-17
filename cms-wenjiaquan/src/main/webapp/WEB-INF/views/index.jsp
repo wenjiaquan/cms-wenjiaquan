@@ -4,8 +4,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<%=request.getContextPath() %>/css/index3.css"   rel="stylesheet"  type="text/css">
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery1.8.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/index.css" rel="stylesheet">
@@ -249,7 +247,7 @@
 			<a href="#" style="padding-right: 36px;">中华英才网</a>
 			<a href="#" style="padding-right: 36px;">51Job</a>
 	</div>
-	<script type="text/javascript" src="/public/js/jquery.min.1.12.4.js"></script>
-	<script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.min.1.12.4.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 </body>
 </html>

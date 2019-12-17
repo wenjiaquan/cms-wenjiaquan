@@ -55,7 +55,8 @@ public class AdminUserController {
 		}
 		//判断密码
 		String string2md5 = CmsMd5Util.string2MD5(user.getPassword());
-		if(!string2md5.equals(userInfo.getPassword())) {
+		System.out.println(string2md5);
+		if(string2md5.equals(userInfo.getPassword())) {
 			session.setAttribute(CmsConstant.UserAdminSessionKey, userInfo);
 			session.setAttribute("username",userInfo.getUsername());
 			return JsonResult.sucess();

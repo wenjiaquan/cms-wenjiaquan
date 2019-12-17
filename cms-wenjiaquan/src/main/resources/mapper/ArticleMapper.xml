@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wenjiaquan.cms.dao.ArticleDao">
-  
   <select id="select" resultType="Article">
 		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId,channel.name channelName,cate.name categoryName
 		from cms_article article,cms_channel channel,cms_category cate
@@ -62,7 +61,7 @@
 	      status = #{status}
 	    where id = #{id}
 	</update>
-
+	
 	<update id="addHot">
 		update cms_article
 	    set 
