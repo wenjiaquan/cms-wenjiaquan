@@ -11,13 +11,21 @@
 		<if test="article.title!=null and article.title!=''">
 			and article.title like '%${article.title}%'
 		</if>
+		<if test="article.userId!=null">
+			and article.user_id=#{article.userId}
+		</if>
 		<if test="article.status!=null">
 			and article.status=#{article.status}
 		</if>
+		<if test="article.statusIds!=null">
+			and article.status in (${article.statusIds})
+		</if>
+		order by updated desc
 	</select>
 	
 	<select id="selectById" resultType="Article">
-		select * from cms_article where id=#{id}
+		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId
+		 from cms_article article where id=#{id}
 	</select>
 	
 	<select id="count" resultType="int">
@@ -44,15 +52,11 @@
 	      channel_id = #{article.channelId},
 	      category_id = #{article.categoryId},
 	      user_id = #{article.userId},
-	      hits = #{article.hits},
-	      hot = #{article.hot},
 	      status = #{article.status},
-	      deleted = #{article.deleted},
-	      created = #{article.created},
 	      updated = #{article.updated},
 	      commentCnt = #{article.commentcnt},
 	      content = #{article.content}
-	    where id = #{id}
+	    where id = #{article.id}
 	</update>
 	
 	<update id="updateStatus">

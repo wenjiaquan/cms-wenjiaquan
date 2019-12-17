@@ -4,10 +4,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<%=request.getContextPath() %>/css/index3.css"   rel="stylesheet"  type="text/css">
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery1.8.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Cms后台登录</title>
+<title>个人中心</title>
 <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/cms.css" rel="stylesheet">
@@ -44,5 +42,6 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/cms.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/ajaxfileupload.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap-datetimepicker.fr.js"></script>
 </body>
 </html>

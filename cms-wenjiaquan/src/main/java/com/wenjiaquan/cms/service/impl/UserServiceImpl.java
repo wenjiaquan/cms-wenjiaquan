@@ -1,5 +1,6 @@
 package com.wenjiaquan.cms.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,5 +70,11 @@ public class UserServiceImpl implements UserService {
 		PageHelper.startPage(pageNum, pageSize);
 		List<User> userList = userdao.select(user);
 		return new PageInfo<>(userList);
+	}
+	
+	@Override
+	public boolean update(User user) {
+		user.setUpdateTime(new Date());
+		return userdao.update(user)>0;
 	}
 }

@@ -77,7 +77,7 @@ public class ArticleServiceImpl implements ArticleService {
 			article.setUpdated(new Date());
 			articleDao.update(article);
 		}
-		return false;
+		return true;
 	}
 
 	@Override

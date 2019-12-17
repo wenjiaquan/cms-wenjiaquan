@@ -50,7 +50,7 @@ public class AdminUserController {
 			return JsonResult.fail(1000, "用户名或密码错误");
 		}
 		//是否管理员
-		if(userInfo.isAdmin()) {
+		if(!userInfo.isAdmin()) {
 			return JsonResult.fail(1000, "权限不够");
 		}
 		//判断密码
@@ -67,7 +67,6 @@ public class AdminUserController {
 	@RequestMapping("logout")
 	public Object logout(HttpServletResponse response,HttpSession session) {
 		session.invalidate();
-		session.removeAttribute(CmsConstant.UserAdminSessionKey);
 		return "redirect:/admin/";
 	}
 }

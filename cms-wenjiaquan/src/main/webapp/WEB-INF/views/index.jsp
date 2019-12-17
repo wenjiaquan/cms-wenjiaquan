@@ -7,6 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=request.getContextPath() %>/css/bootstrap.min.css" rel="stylesheet">
 <link href="<%=request.getContextPath() %>/css/index.css" rel="stylesheet">
+<style type="text/css">
+	
+</style>
 <title>前台首页</title>
 </head>
 <body>
@@ -123,22 +126,20 @@
 					    <p style="color: #999;">蝈蝈  2019-10-24 18:50</p>
 					  </div>
 					</div>
-					<div class="media">
-					  <img src="https://p3.pstatp.com/list/190x124/pgc-image/d14a9ef6392b4afa87d6f6f7b85dd9a8" class="mr-3" alt="...">
-					  <div class="media-body">
-					    <h4 class="mt-1">
-					    	<a href="#">这次，杨超越的纯洁人设崩塌了？</a>
-					    </h4>
-					    <p style="color: #999;">蝈蝈  2019-10-24 18:50</p>
-					  </div>
-					</div>
-					<div class="media">
-					  <img src="https://p3.pstatp.com/list/190x124/pgc-image/d14a9ef6392b4afa87d6f6f7b85dd9a8" class="mr-3" alt="...">
-					  <div class="media-body">
-					    <h4 class="mt-1">
-					    	<a href="#">这次，杨超越的纯洁人设崩塌了？</a>
-					    </h4>
-					    <p style="color: #999;">蝈蝈  2019-10-24 18:50</p>
+					<div style="text-align: center;">
+					<nav aria-label="...">
+					  <ul class="pagination pagination-lg">
+					    <li class="page-item active" aria-current="page">
+					      <span class="page-link">
+					        1
+					        <span class="sr-only">(current)</span>
+					      </span>
+					    </li>
+					    <li class="page-item"><a class="page-link" href="#">2</a></li>
+					    <li class="page-item"><a class="page-link" href="#">3</a></li>
+					  </ul>
+					</nav>
+				</div>
 					  </div>
 					</div>
 					<div class="media">
@@ -165,7 +166,7 @@
 				</p>
 			</div>
 			<div class="col-3">
-				<div class="right" >
+				<div class="right">
 					<div>最新文章</div>
 					<ul class="list-unstyled">
 					  <li class="media">

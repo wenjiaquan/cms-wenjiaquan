@@ -23,14 +23,27 @@
 	<!-- 不拦截静态资源 -->
 	<mvc:default-servlet-handler />
 	<!-- mvc注解驱动 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<!-- 日期转换器 -->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+           <property name="converters">
+               <set>
+                   <bean class="com.wenjiaquan.cms.common.StringToDateConverter"></bean>
+               </set>
+           </property>
+    </bean>
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
-			<mvc:mapping path="/admin1/**"/>
 			<mvc:exclude-mapping path="/admin/"/>
 			<mvc:exclude-mapping path="/admin/user/login"/>
-			<bean class="com.wenjiaquan.cms.common.AuthInterceptor"></bean>
+			<bean class="com.wenjiaquan.cms.common.AuthAdminInterceptor"></bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/user/register"/>
+			<bean class="com.wenjiaquan.cms.common.AuthUserInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 	<!-- 文件上传的处理类 -->

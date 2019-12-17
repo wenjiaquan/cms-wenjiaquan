@@ -13,15 +13,15 @@ import org.springframework.web.servlet.HandlerInterceptor;
 * @date 2019年12月16日 下午2:18:53 
 * @version V1.0   
 */
-public class AuthInterceptor implements HandlerInterceptor{
+public class AuthUserInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		Object userInfo = request.getSession().getAttribute(CmsConstant.UserAdminSessionKey);
+		Object userInfo = request.getSession().getAttribute(CmsConstant.UserSessionKey);
 		if(userInfo!=null) {
 			return true;
 		}
-	    response.sendRedirect("/admin/");
+	    response.sendRedirect("/user/login");
 		return false;
 	}
 }

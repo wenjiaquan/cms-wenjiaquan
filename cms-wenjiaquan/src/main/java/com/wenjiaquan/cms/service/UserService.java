@@ -71,6 +71,13 @@ public interface UserService {
 	 * @return: PageInfo<User>      
 	 * @throws
 	 */
-	PageInfo<User> getPageInfo(User user, int pageNum,
-			int pageSize);
+	PageInfo<User> getPageInfo(User user, int pageNum,int pageSize);
+	/**
+	 * @Title: update   
+	 * @Description: 更新用户信息
+	 * @param: @param user      
+	 * @return: void      
+	 * @throws
+	 */
+	boolean update(User user);
 }
