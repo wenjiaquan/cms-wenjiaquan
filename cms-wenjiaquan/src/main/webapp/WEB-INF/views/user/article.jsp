@@ -32,7 +32,7 @@
 	  <button type="button" class="btn btn-primary mb-2" onclick="query()">查询</button>
 	</form>
   
-  	<table class="table">
+  	<table class="table" bgcolor="white">
   <thead>
     <tr>
       <th scope="col"><input type="checkbox" value="" id="chkALL" name="chkALL"></th>
@@ -58,7 +58,7 @@
 	      <td>${item.status==1?"已审核":item.status==0?"未审核":item.status==2?"草稿":"审核未通过"}</td>
 	      <td><fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm"/></td>
 	      <td>
-	      	<c:if test="${item.status==2 }">
+	      	<c:if test="${item.status==2 || item.status==-1 }">
 	      		<button type="button" class="btn btn-primary" onclick="edit('${item.id}')">编辑</button>
 	      	</c:if>
 	      		<button type="button" class="btn btn-primary" onclick="view('${item.id}')">查看</button>
@@ -67,7 +67,14 @@
    	</c:forEach>
   </tbody>
 </table>
-<jsp:include page="../common/page.jsp"></jsp:include>
+<div class="row">
+	<div class="col-2">
+		<button type="button" class="btn btn-danger" onclick="delAlert();">删除</button>
+	</div>
+	<div class="col-10">
+		<jsp:include page="../common/page.jsp"></jsp:include>
+	</div>
+</div>
 <div class="alert alert-danger" role="alert" style="display: none"></div>
 
 <div class="modal" tabindex="-1" role="dialog" id="checkModal">
@@ -104,7 +111,27 @@
   </div>
 </div>
 
-<script src="<%=request.getContextPath() %>/js/checkbox.js"></script>
+<div class="modal" tabindex="-1" role="dialog" id="delModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">确认框</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	你确认删除选择的数据吗？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="batchDel();">确认删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="<%=request.getContextPath() %>/js/checkbox.js?v1.00"></script>
 <script>
 	function query(){
 		var params = $("form").serialize();
@@ -123,5 +150,30 @@
 		window.open("/article/"+id+".html");
 	}
 	
+	function delAlert(){
+		var ids = getCheckboxIds();
+		if(ids==""){
+			$(".alert").html("请选择要删除的文章");
+			$(".alert").show();
+			return;
+		}
+		$('#delModal').modal('show')
+	}
+	
+	function batchDel(){
+		var ids = getCheckboxIds();
+		console.log(ids);
+		$.post("/article/delByIds",{ids:ids},function(res){
+			if(res.result){
+				$("#queryForm #pageNum").val(1);
+				$('#delModal').modal('hide');
+				query();
+			}else{
+				$(".alert").html(res.message);
+				$(".alert").show();
+				$('#delModal').modal('hide');
+			}
+		});
+	}
 	
 </script>

@@ -12,7 +12,7 @@
 <link href="<%=request.getContextPath() %>/css/cms.css" rel="stylesheet">
 </head>
 <body>
-<table class="table">
+<table class="table" bgcolor="white">
   <thead>
     <tr>
       <th scope="col">#</th>

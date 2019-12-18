@@ -84,15 +84,28 @@ public class ArticleController {
 		return JsonResult.sucess(articleService.getCateListByChannelId(channelId));
 	}
 	/**
-	 * @Title: update   
-	 * @Description: 修改文章   
-	 * @param: @return      
-	 * @return: String      
-	 * @throws
-	 */
-	@RequestMapping("update")
-	public String update() {
-		return "update";
+	* @Title: delByIds   
+	 * @Description: 批量删除   
+	 * @param: @param ids
+	* @param: @return  
+	* @return: JsonResult      
+			 * @throws
+			 */
+	@RequestMapping("delByIds")
+	public @ResponseBody JsonResult delByIds(String ids) {
+		if(ids==null) {
+			return JsonResult.fail(10001, "请选择删除的文章");
+		}
+		//已审核判断
+		boolean isCheck = articleService.isAllCheck(ids);
+		if(!isCheck) {
+			return JsonResult.fail(10001, "请选择未审核的文章删除");
+		}
+		//删除
+		boolean result = articleService.delByIds(ids);
+		if(result) {
+			return JsonResult.sucess();
+		}
+		return JsonResult.fail(500, "未知错误");
 	}
-	
 }

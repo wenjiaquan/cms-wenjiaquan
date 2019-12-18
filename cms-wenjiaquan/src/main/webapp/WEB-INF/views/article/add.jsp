@@ -134,7 +134,7 @@
 			url:"/article/add",
 			success:function(res){
 				console.log(res);
-				if(res){
+				if(res.result){
 					$(".alert").html("发布成功");
 					$(".alert").show();
 					selectedMenu("/user/article");

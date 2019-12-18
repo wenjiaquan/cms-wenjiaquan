@@ -117,6 +117,16 @@ public class UserController {
 	 */
 	@RequestMapping(value="register",method=RequestMethod.POST)
 	public @ResponseBody Object register(User user,HttpSession session) {
+		//判断用户名是否存在
+			boolean result = userService.isExist(user.getUsername());
+			if(result) {
+				return JsonResult.fail(10001, "用户名已存在");
+			}
+			//用户注册
+			boolean register = userService.register(user);
+			if(register) {
+				return JsonResult.sucess();
+			}
 		return JsonResult.fail(500, "未知错误");
 	}
 	@RequestMapping("center")

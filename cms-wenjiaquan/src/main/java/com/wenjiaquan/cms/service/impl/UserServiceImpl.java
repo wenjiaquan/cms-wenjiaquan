@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.wenjiaquan.cms.common.CmsMd5Util;
 import com.wenjiaquan.cms.dao.UserDao;
 import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.UserService;
@@ -40,7 +41,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean register(User user) {
 		// TODO Auto-generated method stub
-		return false;
+		user.setCreateTime(new Date());
+		user.setUpdateTime(new Date());
+		user.setPassword(CmsMd5Util.string2MD5(user.getPassword()));
+		user.setLocked(0);
+		user.setScore(0);
+		user.setRole("0");
+		return userdao.insert(user)>0;
 	}
 
 	@Override
@@ -76,5 +83,15 @@ public class UserServiceImpl implements UserService {
 	public boolean update(User user) {
 		user.setUpdateTime(new Date());
 		return userdao.update(user)>0;
+	}
+	
+	@Override
+	public boolean isExist(String username) {
+		return getByUsername(username)!=null;
+	}
+	
+	@Override
+	public User getById(Integer id) {
+		return userdao.selectById(id);
 	}
 }
