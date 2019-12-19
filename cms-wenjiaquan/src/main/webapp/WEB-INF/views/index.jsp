@@ -19,6 +19,7 @@
 			<img src="https://v4.bootcss.com/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
 		</a>
 		<c:if test="${USER_SESSION_ID!=null }">
+			<a class="nav-link" href="/admin/">管理员登录</a>
 			<a class="nav-link" href="/user/center">发文</a> 
 			<a class="nav-link" href="/user/center">个人中心</a> 
 			<a class="nav-link" href="javascript:;">${USER_SESSION_ID.nickname }</a>
