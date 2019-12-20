@@ -9,6 +9,16 @@
 			<input type="text" name="nickname" value="${user.nickname }" class="form-control" placeholder="蝈蝈">
 		</div>
 	</div>
+	
+	<div class="form-group row">
+		<label for="inputEmail3" class="col-sm-2 col-form-label">我的头像</label>
+		<div class="col-sm-10">
+			<jsp:include page="../common/uploadImg.jsp">
+				<jsp:param value="headimg" name="feildName"/>
+				<jsp:param value="${user.headimg }" name="feildValue"/>
+			</jsp:include>
+		</div>
+	</div>	
 	<div class="form-group row">
 		<label for="inputEmail3" class="col-sm-2 col-form-label">我的生日</label>
 		<div class="col-sm-3">

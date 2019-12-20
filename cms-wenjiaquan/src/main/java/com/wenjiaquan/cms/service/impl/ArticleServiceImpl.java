@@ -108,7 +108,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public PageInfo<Article> getHotList(int pageNum) {
-		PageHelper.startPage(pageNum, 1);
+		PageHelper.startPage(pageNum, 6);
 		List<Article> articleList = articleDao.selectByHot();
 
 		return new PageInfo<>(articleList);
@@ -116,8 +116,13 @@ public class ArticleServiceImpl implements ArticleService {
 
 	@Override
 	public PageInfo<Article> getListByChannelIdAndCateId(Integer channelId, Integer cateId, Integer pageNum) {
-		PageHelper.startPage(pageNum, 1);
+		PageHelper.startPage(pageNum, 6);
 		List<Article> articleList = articleDao.selectListByChannelIdAndCateId(channelId,cateId);
 		 return new PageInfo<>(articleList);
+	}
+	
+	@Override
+	public List<Article> getNewList(int num) {
+		return articleDao.selectNewList(num);
 	}
 }
