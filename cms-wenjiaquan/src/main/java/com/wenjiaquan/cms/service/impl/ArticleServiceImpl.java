@@ -15,6 +15,7 @@ import com.wenjiaquan.cms.dao.ChannelDao;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Category;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Comment;
 import com.wenjiaquan.cms.service.ArticleService;
 
 /**   
@@ -124,5 +125,11 @@ public class ArticleServiceImpl implements ArticleService {
 	@Override
 	public List<Article> getNewList(int num) {
 		return articleDao.selectNewList(num);
+	}
+
+	@Override
+	public List<Comment> comment() {
+		// TODO Auto-generated method stub
+		return articleDao.comment();
 	}
 }

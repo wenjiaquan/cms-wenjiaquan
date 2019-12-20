@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Category;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Comment;
 
 /**   
 * @Title: ArticleService.java 
@@ -141,4 +142,7 @@ public interface ArticleService {
 	 * @throws
 	 */
 	List<Article> getNewList(int num);
+	
+	
+	List<Comment> comment();
 }

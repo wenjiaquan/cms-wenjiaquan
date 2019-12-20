@@ -13,12 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenjiaquan.cms.common.CmsConstant;
 import com.wenjiaquan.cms.common.CmsMd5Util;
 import com.wenjiaquan.cms.common.JsonResult;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Comment;
 import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.ArticleService;
 import com.wenjiaquan.cms.service.UserService;
@@ -194,5 +196,16 @@ public class UserController {
 		return "user/article";
 	}
 	
-	
+	/**
+	 * 评论列表
+	 */
+	@RequestMapping(value="comment",method=RequestMethod.GET)
+	public String comment(Model m,@RequestParam(value="pageNum",defaultValue="1") int pageNum,@RequestParam(value="pageSize",defaultValue="3") int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Comment> list=articleService.comment();
+		PageInfo pageInfo=new PageInfo(list);
+		m.addAttribute("pageInfo",pageInfo);
+		m.addAttribute("list",list);
+		return "user/comment";
+	}
 }

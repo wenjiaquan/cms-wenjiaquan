@@ -18,7 +18,7 @@
 <nav class="nav justify-content-start" style="background-color: #222;">
 		<c:if test="${USER_SESSION_ID!=null && USER_SESSION_ID.headimg!=null }">
 			<a class="nav-link navbar-brand" href="#">
-				<img src="${USER_SESSION_ID.headimg }" width="30" height="30" alt="">
+				<img src="${USER_SESSION_ID.headimg }" style="border-radius: 15px" width="30" height="30" alt="">
 			</a>
 		</c:if>
 		<c:if test="${USER_SESSION_ID==null || USER_SESSION_ID.headimg==null  }">
@@ -124,10 +124,10 @@
 		<a class="nav-link" href="javascript:;">友情链接</a>
 	</p>
 	<div class="justify-content-center" style="margin-bottom: 200px;text-align: center;">
-			<a href="#" style="padding-right: 36px;">拉勾网</a>
-			<a href="#" style="padding-right: 36px;">猎聘网</a>
-			<a href="#" style="padding-right: 36px;">中华英才网</a>
-			<a href="#" style="padding-right: 36px;">51Job</a>
+			<a href="https://www.lagou.com/landing-page/pc/communal2.html?utm_source=m_cf_cpt_360_pc1" style="padding-right: 36px;">拉勾网</a>
+			<a href="https://www.liepin.com/event/login/simple/?mscid=s_00_pz0&utm_source=baidu&utm_medium=&utm_campaign=%E6%90%9C%E7%B4%A2&utm_content=%E6%A0%87%E9%A2%98&utm_term=%E4%B8%BB%E6%A0%87%E9%A2%98" style="padding-right: 36px;">猎聘网</a>
+			<a href="http://www.chinahr.com/beijing/jobs/" style="padding-right: 36px;">中华英才网</a>
+			<a href="https://www.51job.com/link.php" style="padding-right: 36px;">51Job</a>
 	</div>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.min.1.12.4.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
