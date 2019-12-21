@@ -132,4 +132,10 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		return articleDao.comment();
 	}
+
+	@Override
+	public int deleteComment(String ids) {
+		// TODO Auto-generated method stub
+		return articleDao.deleteComment(ids);
+	}
 }

@@ -145,4 +145,5 @@ public interface ArticleService {
 	
 	
 	List<Comment> comment();
+	int deleteComment(String ids);
 }

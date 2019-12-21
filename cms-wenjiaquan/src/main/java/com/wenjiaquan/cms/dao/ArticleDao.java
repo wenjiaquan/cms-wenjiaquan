@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Comment;
@@ -152,6 +153,8 @@ public interface ArticleDao {
 	List<Article> selectNewList(@Param("num") int num);
 	
 	
-	@Select("select cms_article.title,cms_comment.* from cms_comment left join cms_article on cms_article.id=cms_comment.articleid")
+	@Select("select cms_article.title,cms_comment.* from cms_comment join cms_article on cms_article.id=cms_comment.articleid")
 	List<Comment> comment();
+	@Update("update cms_comment set articleid=null where id in(${ids})")
+	int deleteComment(@Param("ids") String ids);
 }

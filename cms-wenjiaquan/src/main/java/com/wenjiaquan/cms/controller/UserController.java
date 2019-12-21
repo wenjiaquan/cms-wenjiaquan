@@ -208,4 +208,11 @@ public class UserController {
 		m.addAttribute("list",list);
 		return "user/comment";
 	}
+	
+	@ResponseBody
+	@RequestMapping("deleteComment")
+	public Object deleteComment(String ids) {
+		int rs=articleService.deleteComment(ids);
+		return rs>0;
+	}
 }
