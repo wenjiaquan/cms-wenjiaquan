@@ -153,8 +153,9 @@ public interface ArticleDao {
 	List<Article> selectNewList(@Param("num") int num);
 	
 	
-	@Select("select cms_article.title,cms_comment.* from cms_comment join cms_article on cms_article.id=cms_comment.articleid")
-	List<Comment> comment();
+	@Select("select cms_article.title,cms_comment.* from cms_comment join cms_article on cms_article.id=cms_comment.articleid where userId=#{id}")
+	List<Comment> comment(int id);
 	@Update("update cms_comment set articleid=null where id in(${ids})")
 	int deleteComment(@Param("ids") String ids);
+	void addTousu(Integer id);
 }

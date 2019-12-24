@@ -46,7 +46,18 @@ public class User implements Serializable{
 	    
 	    private String headimg;
 	   
-	    public boolean isAdmin() {
+	    private String isMima;
+	    
+	    
+	    public String getIsMima() {
+			return isMima;
+		}
+
+		public void setIsMima(String isMima) {
+			this.isMima = isMima;
+		}
+
+		public boolean isAdmin() {
 	    	return "1".equals(getRole());
 	    }
 	    

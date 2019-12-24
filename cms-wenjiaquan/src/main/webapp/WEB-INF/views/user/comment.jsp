@@ -11,7 +11,7 @@
 <link href="<%=request.getContextPath() %>/css/cms.css" rel="stylesheet">
 </head>
 <form>
- <input type="hidden" name="pageNum" value="1">
+ <input type="hidden" name="pageNum" value="1" value="${pageInfo.pageNum}">
 </form>
 <body>
 <table class="table" bgcolor="white">
@@ -55,7 +55,6 @@
 </div>	
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.8.2.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/checkbox.js?v1.00"></script>
 <script type="text/javascript">
 function gotoPage(pageNo){

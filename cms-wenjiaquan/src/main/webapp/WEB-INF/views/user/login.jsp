@@ -38,8 +38,11 @@
                                 <label for="password" class="text-info"><br></label><br>
                                 <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码">
                             </div>
-                            <div class="form-group">
-                                
+                            <div class="form-group form-check">
+						    <input type="checkbox" class="form-check-input" id="isMima" name="isMima" value="1">
+						    	<label class="form-check-label" for="exampleCheck1">记住用户名</label>
+						  	</div>
+                            <div class="form-group"> 
                                 <!-- <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br> -->
                                 <input type="button" value="登录" class="btn btn-info btn-md" onclick="login()">
                                 <label for="exampleInputPassword1">没有帐号，去<a href="/user/register">注册</a></label>

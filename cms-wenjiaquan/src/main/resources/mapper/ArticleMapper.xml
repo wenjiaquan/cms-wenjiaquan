@@ -123,4 +123,10 @@
 	      deleted = 1
 	    where id in (${ids})
 	</update>
+	<update id="addTousu">
+		update cms_article
+	    set 
+	      tousuCnt = tousuCnt+1
+	    where id = #{id}
+	</update>
 </mapper>

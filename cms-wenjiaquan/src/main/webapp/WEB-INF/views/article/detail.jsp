@@ -44,8 +44,7 @@
 				<div style="margin-top: 10px;margin-bottom: 10px;font-weight: bold;color: #777;">
 					<span>${user.nickname }</span> 
 					<span><fmt:formatDate value="${article.created}" pattern="yyyy-MM-dd HH:mm:ss"/></span>
-					<span style="font-size: 24px;">收藏</span>
-					<span style="font-size: 24px;">已收藏</span>
+					<span style="font-size: 24px;color: red;" onclick="tousuShow()">投诉</span>
 				</div>
 				<div style="font-size: 24">
 					${article.content }
@@ -83,7 +82,25 @@
 			</div>
 		</div>
 	</div>
-
+	<div class="modal" tabindex="-1" role="dialog" id="tousumodel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">投诉</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <textarea class="form-control" rows="2" id="content1" placeholder="请输入投诉内容" required name="content"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="tousu()">确认投诉</button>
+      </div>
+    </div>
+  </div>
+</div>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.min.1.12.4.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
@@ -106,6 +123,35 @@
 					location.href="/user/login";
 				}
 			})
+		}
+		function tousuShow() {
+			$.post(
+				"/user/isLogin",
+				null,
+				function(res){
+					if(res.result){
+						$("#tousumodel").modal('show');
+					}else{
+						alert("没有登录，请登录后在投诉");
+						window.location.href="/user/login";
+					}
+				}
+			)
+		}
+		function tousu() {
+			var content = $("#content1").val();
+			$.post(
+				"/tousu/add",
+				{content:content,articleId:articleId},
+				function(res){
+					if(res.result){
+						alert("投诉成功");
+						$("#tousumodel").modal('hide');
+					}else{
+						alert("投诉失败");
+					}
+				}
+			)
 		}
 	</script>
 </body>

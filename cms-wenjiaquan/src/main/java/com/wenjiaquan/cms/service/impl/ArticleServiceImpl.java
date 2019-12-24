@@ -128,14 +128,20 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public List<Comment> comment() {
+	public List<Comment> comment(int id) {
 		// TODO Auto-generated method stub
-		return articleDao.comment();
+		return articleDao.comment(id);
 	}
 
 	@Override
 	public int deleteComment(String ids) {
 		// TODO Auto-generated method stub
 		return articleDao.deleteComment(ids);
+	}
+
+	@Override
+	public void addTousu(Integer id) {
+		// TODO Auto-generated method stub
+		articleDao.addTousu(id);
 	}
 }

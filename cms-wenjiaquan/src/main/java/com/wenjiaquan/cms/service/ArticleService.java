@@ -144,6 +144,8 @@ public interface ArticleService {
 	List<Article> getNewList(int num);
 	
 	
-	List<Comment> comment();
+	List<Comment> comment(int id);
 	int deleteComment(String ids);
+	
+	void addTousu(Integer articleid);
 }

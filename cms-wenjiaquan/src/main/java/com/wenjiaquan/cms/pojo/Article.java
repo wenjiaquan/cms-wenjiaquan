@@ -47,7 +47,17 @@ public class Article implements Serializable{
     
     private String statusIds;
     
-    public String getNickname() {
+    private int tousuCnt;
+    
+    public int getTousuCnt() {
+		return tousuCnt;
+	}
+
+	public void setTousuCnt(int tousuCnt) {
+		this.tousuCnt = tousuCnt;
+	}
+
+	public String getNickname() {
 		return nickname;
 	}
 
