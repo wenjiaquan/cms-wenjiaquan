@@ -85,7 +85,7 @@ public class UserController {
 			session.setAttribute(CmsConstant.UserSessionKey, userInfo);
 			if("1".equals(user.getIsMima())) {
 				int maxAge=1000*60*60*24;
-				CookieUtil.addCookie(response,"username",user.getUsername(), null,null, maxAge);
+				CookieUtil.addCookie(response,"username", user.getUsername(), null,null, maxAge);
 			}
 			return JsonResult.sucess();
 		}
@@ -103,7 +103,7 @@ public class UserController {
 	@RequestMapping("logout")
 	public Object logout(HttpServletResponse response,HttpSession session) {
 		session.removeAttribute(CmsConstant.UserSessionKey);
-		//CookieUtil.addCookie(response,"username",null,null,null,0);
+		CookieUtil.addCookie(response,"username",null,null,null,0);
 		return "redirect:/";
 	}
 	/**

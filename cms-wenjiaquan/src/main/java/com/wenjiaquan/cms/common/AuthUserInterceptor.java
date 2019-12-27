@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.UserService;
 
 /**   
@@ -23,8 +24,8 @@ public class AuthUserInterceptor implements HandlerInterceptor{
 		if(userInfo!=null) {
 			return true;
 		}
-		//记住登录 
-		String username = CookieUtil.getCookieByName(request, "username");
+		//记住登录
+		String username = CookieUtil.getCookieByName(request,"username");
 		if(username!=null) {
 			UserService userService = SpringBeanUtils.getBean(UserService.class);
 			userInfo = userService.getByUsername(username);
