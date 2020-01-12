@@ -148,4 +148,6 @@ public interface ArticleService {
 	int deleteComment(String ids);
 	
 	void addTousu(Integer articleid);
+	
+	int kafkaSave(Article article);
 }

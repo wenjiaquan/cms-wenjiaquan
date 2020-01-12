@@ -10,7 +10,7 @@
 	<context:component-scan
 		base-package="com.wenjiaquan.cms.controller"></context:component-scan>
 		
-   <context:property-placeholder location="classpath:cms.properties"/>
+   <context:property-placeholder location="classpath:cms.properties" ignore-unresolvable="true"/>
 	<!-- 视图解析图 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
