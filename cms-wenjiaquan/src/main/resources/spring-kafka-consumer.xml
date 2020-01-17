@@ -10,6 +10,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
+
+
 	<!-- 1、注解扫描器 -->
 	<context:component-scan base-package="com.wenjiaquan.cms"></context:component-scan>
 
