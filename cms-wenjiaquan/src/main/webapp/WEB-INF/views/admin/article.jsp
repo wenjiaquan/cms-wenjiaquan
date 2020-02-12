@@ -79,6 +79,7 @@
   </tbody>
 </table>
 <jsp:include page="../common/page.jsp"></jsp:include>
+<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="dels()">批量删除</button>
 <div class="alert alert-danger" role="alert" style="display: none"></div>
 
 <div class="modal" tabindex="-1" role="dialog" id="checkModal">
@@ -114,7 +115,25 @@
     </div>
   </div>
 </div>
-
+<div class="modal" tabindex="-1" role="dialog" id="delModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">确认框</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        	你确认删除选择的数据吗？
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onclick="batchDel();">确认删除</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="<%=request.getContextPath() %>/js/checkbox.js"></script>
 <script>
 	function query(){
@@ -163,6 +182,19 @@
 			$('.alert').html("已禁止查看");
 			$('.alert').show();
 			query();
+		});
+	}
+	function dels() {
+		var ids = getCheckboxIds();
+		$.post("/article/delByIds",{ids:ids},function(res){
+			if(res.result){
+				$('#delModal').modal('hide');
+				query();
+			}else{
+				$(".alert").html(res.message);
+				$(".alert").show();
+				$('#delModal').modal('hide');
+			}
 		});
 	}
 </script>

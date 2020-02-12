@@ -158,4 +158,7 @@ public interface ArticleDao {
 	@Update("update cms_comment set articleid=null where id in(${ids})")
 	int deleteComment(@Param("ids") String ids);
 	void addTousu(Integer id);
+	
+	@Select("select * from cms_article where id=#{id}")
+	Article selectArticle(String string);
 }

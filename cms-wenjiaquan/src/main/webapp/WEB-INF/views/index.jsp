@@ -37,6 +37,7 @@
 			<a class="nav-link" href="/user/login">登录</a>
 		</c:if>
 	</nav>
+	
 	<div class="container-fluid">
 		<div class="row offset-1" style="margin-top: 15px;">
 			<div class="col-1">
@@ -53,7 +54,17 @@
 				</ul>
 			</div>
 			<div class="col-6">
-				
+				<form action="/article/search" method="post">
+				   <div class="input-group mb-3">
+						<input type="text" name="key" value="${key}" class="form-control"
+							placeholder="请输入要搜索的内容"
+							aria-label="Recipient's username" aria-describedby="button-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" 
+								id="button-addon2">搜索</button>
+						</div>
+					</div>
+				</form>
 				<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 				  <div class="carousel-inner">
 					  <c:forEach items="${slideList }" var="item" varStatus="s">

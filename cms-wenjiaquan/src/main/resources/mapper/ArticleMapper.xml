@@ -5,7 +5,7 @@
 		select article.*,article.channel_id channelId,article.user_id userId,article.category_id categoryId,channel.name channelName,cate.name categoryName
 		from cms_article article,cms_channel channel,cms_category cate
 		WHERE article.channel_id=channel.id AND article.category_id=cate.id and article.deleted=0
-		<if test="article.channelId!=null">
+		<if test="article.channelId!=null and article.channelId!=''">
 			and article.channel_id = #{article.channelId}
 		</if>
 		<if test="article.title!=null and article.title!=''">
@@ -69,7 +69,7 @@
 		select count(1) from cms_article
 	</select>
 	
-	<insert id="insert" parameterType="com.wenjiaquan.cms.pojo.Article">
+	<insert id="insert" parameterType="com.wenjiaquan.cms.pojo.Article" useGeneratedKeys="true" keyProperty="article.id" keyColumn="id">
 		insert into cms_article (title, picture, channel_id, 
 	      category_id, user_id, hits, 
 	      hot, status, deleted, 

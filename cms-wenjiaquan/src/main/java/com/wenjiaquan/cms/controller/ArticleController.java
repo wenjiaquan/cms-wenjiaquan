@@ -7,19 +7,25 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.wenjiaquan.cms.common.CmsConstant;
 import com.wenjiaquan.cms.common.JsonResult;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Category;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Slide;
 import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.ArticleService;
+import com.wenjiaquan.cms.service.SlideService;
+import com.wenjiaquan.utils.ESUtils;
 
 /**   
 * @Title: ArticleController.java 
@@ -34,6 +40,10 @@ import com.wenjiaquan.cms.service.ArticleService;
 public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
+	@Autowired
+	private ElasticsearchTemplate elasticsearchTemplate;
+	@Autowired
+	private SlideService slideService;
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	/**
 	 * @Title: add   
@@ -107,5 +117,22 @@ public class ArticleController {
 			return JsonResult.sucess();
 		}
 		return JsonResult.fail(500, "未知错误");
+	}
+	
+	@RequestMapping("search")
+	public String searchRepository(Model m,String key){
+		AggregatedPage<Article> selectObjects = ESUtils.selectObjects(elasticsearchTemplate, Article.class, null, 0, 10, "id", new String[] {"title"}, key);
+		List<Article> content = selectObjects.getContent();
+		PageInfo pageInfo=new PageInfo(content);
+		m.addAttribute("pageInfo",pageInfo);
+		List<Article> newArticleList = articleService.getNewList(6);
+		m.addAttribute("newArticleList", newArticleList);
+		/** 频道 */
+		List<Channel> channelList = articleService.getChannelList();
+		m.addAttribute("channelList", channelList);
+		/** 轮播图 */
+		List<Slide> slideList = slideService.getAll();
+		m.addAttribute("slideList", slideList);
+		return "index";
 	}
 }

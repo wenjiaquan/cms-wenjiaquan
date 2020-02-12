@@ -13,6 +13,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wenjiaquan.cms.dao.ArticleDao;
+import com.wenjiaquan.cms.dao.ArticleRepository;
 import com.wenjiaquan.cms.dao.CategoryDao;
 import com.wenjiaquan.cms.dao.ChannelDao;
 import com.wenjiaquan.cms.pojo.Article;
@@ -41,6 +42,8 @@ public class ArticleServiceImpl implements ArticleService {
 	private CategoryDao categoryDao;
 	@Autowired
 	private RedisTemplate<String, Article> redisTemplate;
+	@Autowired
+	private ArticleRepository articleRepository;
 	@Override
 	public PageInfo<Article> getPageInfo(Article article, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
@@ -94,9 +97,12 @@ public class ArticleServiceImpl implements ArticleService {
 			article.setHits(0);
 			article.setHot(0);
 			articleDao.insert(article);
+			article.setId(article.getId());
+			articleRepository.save(article);
 		}else {
 			article.setUpdated(new Date());
 			articleDao.update(article);
+			articleRepository.save(article);
 		}
 		return true;
 	}
@@ -108,6 +114,12 @@ public class ArticleServiceImpl implements ArticleService {
 	
 	@Override
 	public boolean delByIds(String ids) {
+		String[] split = ids.split(",");
+		for (String string : split) {
+			Article article=articleDao.selectArticle(string);
+			article.setDeleted(1);
+			articleRepository.save(article);
+		}
 		return articleDao.updateDeletedByIds(ids)>0;
 	}
 

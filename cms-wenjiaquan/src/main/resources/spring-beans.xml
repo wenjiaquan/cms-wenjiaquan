@@ -91,4 +91,6 @@
 	
 	<!-- 导入kafka配置文件 -->
 	<import resource="spring-kafka-*.xml"/>
+	
+	<import resource="spring-es.xml"/>
 </beans>
