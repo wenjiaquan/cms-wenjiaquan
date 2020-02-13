@@ -150,4 +150,5 @@ public interface ArticleService {
 	void addTousu(Integer articleid);
 	
 	int kafkaSave(Article article);
+	void xq(int parseInt);
 }

@@ -262,4 +262,10 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		return articleDao.insert(article);
 	}
+
+	@Override
+	public void xq(int id) {
+		// TODO Auto-generated method stub
+		articleDao.xq(id);
+	}
 }

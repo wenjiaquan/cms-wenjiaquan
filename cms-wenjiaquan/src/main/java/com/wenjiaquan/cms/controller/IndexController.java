@@ -3,6 +3,7 @@ package com.wenjiaquan.cms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,8 @@ public class IndexController {
 	private UserService userService;
 	@Autowired
 	private SlideService slideService;
-
+	@Autowired
+	private KafkaTemplate<String,String> kafkaTemplate;
 
 	@RequestMapping(value="/")
 	public String index(Model model) {
@@ -89,6 +91,7 @@ public class IndexController {
 		model.addAttribute("user", user);
 		/** 查询相关文章 **/
 		List<Article> articleList = articleService.getListByChannelId(article.getChannelId(),id,10);
+		kafkaTemplate.sendDefault("id", id.toString());
 		model.addAttribute("articleList", articleList);
 		return "article/detail";
 	}

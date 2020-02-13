@@ -7,6 +7,7 @@ import org.springframework.kafka.listener.MessageListener;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
+import com.google.gson.Gson;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.service.ArticleService;
 
@@ -35,6 +36,15 @@ public class KafkaConsumerListener implements MessageListener<String, String>{
 			int kafkaSave = articleService.kafkaSave(article);
 			
 			System.out.println(kafkaSave + "=====" + article);
+		}
+		if(key!=null&&key.equals("articleAdd")) {
+			String value = record.value();
+			Gson g=new Gson();
+			articleService.kafkaSave(g.fromJson(value, Article.class));
+		}
+		if(key!=null && key.equals("id")) {
+			String value = record.value();
+			articleService.xq(Integer.parseInt(value));
 		}
 	}
 

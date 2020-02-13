@@ -161,4 +161,7 @@ public interface ArticleDao {
 	
 	@Select("select * from cms_article where id=#{id}")
 	Article selectArticle(String string);
+	
+	@Update("update cms_article set ll=ll+1 where id=#{id}")
+	void xq(int id);
 }
