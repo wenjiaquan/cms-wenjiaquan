@@ -21,6 +21,7 @@ import com.wenjiaquan.cms.common.CookieUtil;
 import com.wenjiaquan.cms.common.JsonResult;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Collections;
 import com.wenjiaquan.cms.pojo.Comment;
 import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.ArticleService;
@@ -218,6 +219,16 @@ public class UserController {
 		m.addAttribute("list",list);
 		return "user/comment";
 	}
+	@RequestMapping("collection")
+	public String collection(Model m,@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,@RequestParam(value = "pageSize",defaultValue = "4") int pageSize,HttpSession session) {
+		User userInfo = (User) session.getAttribute(CmsConstant.UserSessionKey);
+		PageHelper.startPage(pageNum, pageSize);
+		List<Collections> list=articleService.selectcollection(userInfo.getId());
+		PageInfo pageInfo=new PageInfo(list);
+		m.addAttribute("pageInfo",pageInfo);
+		m.addAttribute("list",list);
+		return "user/collection";
+	}
 	
 	@ResponseBody
 	@RequestMapping("deleteComment")
@@ -241,5 +252,11 @@ public class UserController {
 			return JsonResult.sucess();
 		}
 		return JsonResult.fail(CmsConstant.unLoginErrorCode, "未登录");
+	}
+	@ResponseBody
+	@RequestMapping("delcollect")
+	public Object delcollect(Integer id) {
+		int rs=articleService.delcollect(id);
+		return rs>0;
 	}
 }

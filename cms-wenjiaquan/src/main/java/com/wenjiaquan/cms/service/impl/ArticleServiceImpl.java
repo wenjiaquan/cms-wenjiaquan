@@ -2,6 +2,7 @@ package com.wenjiaquan.cms.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.ListOperations;
@@ -19,6 +20,7 @@ import com.wenjiaquan.cms.dao.ChannelDao;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Category;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Collections;
 import com.wenjiaquan.cms.pojo.Comment;
 import com.wenjiaquan.cms.service.ArticleService;
 
@@ -147,57 +149,73 @@ public class ArticleServiceImpl implements ArticleService {
 	 * return new PageInfo<>(articleList); }
 	 */
 	
-	//使用redis缓存热点文章
-		@Override
-		public PageInfo<Article> getHotList(int pageNum) {
-			//设置每页显示的条数
-			int pageSize = 6;
-			
-			PageInfo<Article> pageInfo = null;
-			
-			//redis模板对象，list操作对象
+	/*
+	 * //使用redis缓存热点文章
+	 * 
+	 * @Override public PageInfo<Article> getHotList(int pageNum) { //设置每页显示的条数 int
+	 * pageSize = 6;
+	 * 
+	 * PageInfo<Article> pageInfo = null;
+	 * 
+	 * //redis模板对象，list操作对象 ListOperations<String, Article> opsForList =
+	 * redisTemplate.opsForList();
+	 * 
+	 * //第一次访问时，从mysql中查询数据 //如何判断第一次，判断redis中有没有对应的key值，没有，则为第一次
+	 * if(!redisTemplate.hasKey("article_hot")) {
+	 * 
+	 * //从mysql中获取数据，查询全部数据，所有热点文章 List<Article> articleList =
+	 * articleDao.selectByHot();
+	 * 
+	 * //存入redis中 opsForList.rightPushAll("article_hot", articleList);
+	 * 
+	 * //查询分页数据 PageHelper.startPage(pageNum, pageSize);
+	 * 
+	 * List<Article> list = articleDao.selectByHot();
+	 * 
+	 * //创建pageInfo对象 pageInfo = new PageInfo<Article>(list);
+	 * 
+	 * }else { //将数据存入redis中 //非第一次时，直接从redis中获取数据，（如果新增了文章，则清空redis，在审核通过处写）
+	 * 
+	 * //(pageNum - 1) * pageSize , pageNum * pageSize - 1 List<Article> list =
+	 * opsForList.range("article_hot", (pageNum - 1) * pageSize, pageNum * pageSize
+	 * - 1);
+	 * 
+	 * //将list数据封装到Page对象中 Page<Article> page_list = new Page<>(pageNum, pageSize);
+	 * 
+	 * page_list.addAll(list);
+	 * 
+	 * //获取数据总条数 Long total = opsForList.size("article_hot");
+	 * page_list.setTotal(total);
+	 * 
+	 * //创建pageInfo对象 pageInfo = new PageInfo<Article>(page_list); }
+	 * 
+	 * return pageInfo; }
+	 */
+	//使用redis存5分钟
+	@Override 
+	public PageInfo<Article> getHotList(int pageNum){
+		int pageSize=4;
+		PageInfo<Article> pageInfo=null;
+		Boolean hasKey = redisTemplate.hasKey("article_hot");
+		if(!hasKey) {
+			List<Article> selectByHot = articleDao.selectByHot();
 			ListOperations<String, Article> opsForList = redisTemplate.opsForList();
-			
-			//第一次访问时，从mysql中查询数据
-			//如何判断第一次，判断redis中有没有对应的key值，没有，则为第一次
-			if(!redisTemplate.hasKey("article_hot")) {
-				
-				//从mysql中获取数据，查询全部数据，所有热点文章
-				List<Article> articleList = articleDao.selectByHot();
-				
-				//存入redis中
-				opsForList.rightPushAll("article_hot", articleList);
-				
-				//查询分页数据
-				PageHelper.startPage(pageNum, pageSize);
-				
-				List<Article> list = articleDao.selectByHot();
-				
-				//创建pageInfo对象
-				pageInfo = new PageInfo<Article>(list);
-				
-			}else {
-				//将数据存入redis中
-				//非第一次时，直接从redis中获取数据，（如果新增了文章，则清空redis，在审核通过处写）
-				
-				//(pageNum - 1) * pageSize    , pageNum * pageSize - 1
-				List<Article> list = opsForList.range("article_hot", (pageNum - 1) * pageSize, pageNum * pageSize - 1);
-				
-				//将list数据封装到Page对象中
-				Page<Article> page_list = new Page<>(pageNum, pageSize);
-				
-				page_list.addAll(list);
-				
-				//获取数据总条数
-				Long total = opsForList.size("article_hot");
-				page_list.setTotal(total);
-				
-				//创建pageInfo对象
-				pageInfo = new PageInfo<Article>(page_list);
-			}
-			
-			return pageInfo;
+			opsForList.leftPushAll("article_hot", selectByHot);
+			opsForList.leftPop("article_hot", 5, TimeUnit.MINUTES);
+			PageHelper.startPage(pageNum, pageSize);
+			List<Article> list = articleDao.selectByHot();
+			pageInfo=new PageInfo<Article>(list);
+		}else {
+			ListOperations<String, Article> opsForList = redisTemplate.opsForList();
+			List<Article> list = opsForList.range("article_hot", (pageNum-1)*pageSize, pageNum*pageSize-1);
+			Page<Article> page_list = new Page<>(pageNum,10);
+			page_list.addAll(list);
+			Long total = opsForList.size("article_hot");
+			page_list.setTotal(total);
+			pageInfo=new PageInfo<Article>(page_list);
 		}
+		return pageInfo;
+	}
 
 		@Override
 		public PageInfo<Article> getListByChannelIdAndCateId(Integer channelId, Integer cateId, Integer pageNum) {
@@ -264,8 +282,29 @@ public class ArticleServiceImpl implements ArticleService {
 	}
 
 	@Override
-	public void xq(int id) {
+	public void hits(String id) {
 		// TODO Auto-generated method stub
-		articleDao.xq(id);
+		Article a = articleDao.selectById(Integer.parseInt(id));
+		a.setHits(a.getHits()+1);
+		articleRepository.save(a);
+		articleDao.hits(id);
+	}
+
+	@Override
+	public int addcollection(Article a, String url, String time,int tid) {
+		// TODO Auto-generated method stub
+		return	articleDao.addcollection(a,url,time,tid);
+	}
+
+	@Override
+	public List<Collections> selectcollection(Integer id) {
+		// TODO Auto-generated method stub
+		return articleDao.selectcollection(id);
+	}
+
+	@Override
+	public int delcollect(Integer id) {
+		// TODO Auto-generated method stub
+		return articleDao.delcollect(id);
 	}
 }

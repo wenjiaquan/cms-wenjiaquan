@@ -69,7 +69,7 @@
 		select count(1) from cms_article
 	</select>
 	
-	<insert id="insert" parameterType="com.wenjiaquan.cms.pojo.Article" useGeneratedKeys="true" keyProperty="article.id" keyColumn="id">
+	<insert id="insert"  useGeneratedKeys="true" keyProperty="article.id" keyColumn="id">
 		insert into cms_article (title, picture, channel_id, 
 	      category_id, user_id, hits, 
 	      hot, status, deleted, 
@@ -129,4 +129,10 @@
 	      tousuCnt = tousuCnt+1
 	    where id = #{id}
 	</update>
+	<insert id="addcollection">
+	insert into cms_collection value(null,#{a.title},#{url},#{a.userId},#{time},#{tid})
+	</insert>
+	<select id="selectcollection" resultType="Collections" >
+	select * from cms_collection where user_id=#{id} order by created desc
+	</select>
 </mapper>

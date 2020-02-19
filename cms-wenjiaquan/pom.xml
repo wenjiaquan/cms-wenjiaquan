@@ -35,6 +35,12 @@
 	<!-- jar依赖 -->
 	<dependencies>
 		<dependency>
+		<groupId>com.wenjiaquan</groupId>
+ 		 <artifactId>wenjiaquan.common</artifactId>
+ 		 <version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	
+		<dependency>
 			  <groupId>com.wenjiaquan.common.utils</groupId>
 			<artifactId>common-utils</artifactId>
 			<version>0.0.1-SNAPSHOT</version>

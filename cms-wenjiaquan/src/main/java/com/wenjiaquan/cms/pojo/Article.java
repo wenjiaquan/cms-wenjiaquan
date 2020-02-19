@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "cms_article",type = "article")
+@Document(indexName = "cms_article",type ="article")
 public class Article implements Serializable{
 	
 	/**   
@@ -17,7 +17,7 @@ public class Article implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	private Integer id;
-	@Field(index = true,store = true,analyzer = "id_smart",searchAnalyzer = "ik_smart",type = FieldType.text)
+	@Field(index = true,store = true,analyzer = "ik_smart",searchAnalyzer = "ik_smart",type = FieldType.text)
     private String title;
 
     private String picture;

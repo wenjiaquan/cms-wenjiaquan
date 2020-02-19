@@ -62,6 +62,7 @@
 	      		<button type="button" class="btn btn-primary" onclick="edit('${item.id}')">编辑</button>
 	      	</c:if>
 	      		<button type="button" class="btn btn-primary" onclick="view('${item.id}')">查看</button>
+	      		<button type="button" class="btn btn-primary" onclick="collection('${item.id}')">收藏</button>
 	      </td>
 	    </tr>
    	</c:forEach>
@@ -149,7 +150,9 @@
 	function view(id){
 		window.open("/article/"+id+".html");
 	}
-	
+	function collection(id) {
+		location="/article/collection?id="+id;
+	}
 	function delAlert(){
 		var ids = getCheckboxIds();
 		if(ids==""){

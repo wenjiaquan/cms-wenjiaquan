@@ -1,9 +1,16 @@
 package com.wenjiaquan.cms.controller;
 
+import java.net.UnknownHostException;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +44,11 @@ public class IndexController {
 	private SlideService slideService;
 	@Autowired
 	private KafkaTemplate<String,String> kafkaTemplate;
-
+	@Autowired
+	private RedisTemplate redisTemplate;
+	@Autowired
+	private ThreadPoolTaskExecutor executor;
+	
 	@RequestMapping(value="/")
 	public String index(Model model) {
 		return index(1, model);
@@ -79,7 +90,7 @@ public class IndexController {
 		return "index";
 	}
 	@RequestMapping("article/{id}.html")
-	public String articleDetail(@PathVariable Integer id,Model model) {
+	public String articleDetail(@PathVariable Integer id,Model model,HttpServletRequest request) throws UnknownHostException {
 		/** 查询文章 **/
 		Article article = articleService.getById(id);
 		model.addAttribute("article", article);
@@ -90,9 +101,26 @@ public class IndexController {
 		User user = userService.getById(article.getUserId());
 		model.addAttribute("user", user);
 		/** 查询相关文章 **/
+		//String hostAddress = InetAddress.getLocalHost().getHostAddress();
+		String remoteAddr = request.getRemoteAddr();
+		ValueOperations opsForValue = redisTemplate.opsForValue();
+		boolean key=redisTemplate.hasKey("hits_"+id+"_"+remoteAddr);
+		if(!key) {
+			executor.execute(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					articleService.hits(id.toString());
+					opsForValue.set("hits_"+id+"_"+remoteAddr, null,10,TimeUnit.SECONDS);
+				}
+			});
+		}
 		List<Article> articleList = articleService.getListByChannelId(article.getChannelId(),id,10);
-		kafkaTemplate.sendDefault("id", id.toString());
 		model.addAttribute("articleList", articleList);
+		for (Article article2 : articleList) {
+			model.addAttribute("hits",article.getHits()+1);
+		}
 		return "article/detail";
 	}
 }

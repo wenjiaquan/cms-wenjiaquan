@@ -1,5 +1,7 @@
 package com.wenjiaquan.cms.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
@@ -26,7 +29,10 @@ import com.wenjiaquan.cms.pojo.Slide;
 import com.wenjiaquan.cms.pojo.User;
 import com.wenjiaquan.cms.service.ArticleService;
 import com.wenjiaquan.cms.service.SlideService;
+import com.wenjiaquan.cms.util.HLUtils;
+import com.wenjiaquan.utils.DateUtil;
 import com.wenjiaquan.utils.ESUtils;
+import com.wjq.util.StringUtil;
 
 /**
  * @Title: ArticleController.java
@@ -45,13 +51,13 @@ public class ArticleController {
 	private ElasticsearchTemplate elasticsearchTemplate;
 	@Autowired
 	private SlideService slideService;
-	
+
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * @Title: add
 	 * 
-	 * @@ -22,13 +33,42 @@ @return: String @throws
+	 *         @@ -22,13 +33,42 @@ @return: String @throws
 	 */
 	@RequestMapping(value = "add", method = RequestMethod.GET)
 	public String add(Integer id, Model model) {
@@ -83,8 +89,8 @@ public class ArticleController {
 
 	/**
 	 * @Title: getCateList @Description: 根据频道Id查询分类列表 @param: @param
-	 * channelId @param: @param model @param: @param
-	 * session @param: @return @return: JsonResult @throws
+	 *         channelId @param: @param model @param: @param
+	 *         session @param: @return @return: JsonResult @throws
 	 */
 	@RequestMapping(value = "getCateList", method = RequestMethod.GET)
 	@ResponseBody
@@ -94,7 +100,7 @@ public class ArticleController {
 
 	/**
 	 * @Title: delByIds @Description: 批量删除 @param: @param
-	 * ids @param: @return @return: JsonResult @throws
+	 *         ids @param: @return @return: JsonResult @throws
 	 */
 	@RequestMapping("delByIds")
 	public @ResponseBody JsonResult delByIds(String ids) {
@@ -113,29 +119,47 @@ public class ArticleController {
 		}
 		return JsonResult.fail(500, "未知错误");
 	}
+	//收藏添加
+	@RequestMapping("collection")
+	public String collection(Integer id) {
+		Article a = articleService.getById(id);
+		String url = "http://127.0.0.1/article/" + id + ".html";
+		String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+		System.err.println(time);
+		if (StringUtil.isHttpUrl(url)) {
+			int rs = articleService.addcollection(a, url, time, a.getId());
+		}
+		return "/user/center";
+	}
 
 	/*
-	 * @RequestMapping("search") public String searchRepository(Model m,String key){
-	 * AggregatedPage<Article> selectObjects =
-	 * ESUtils.selectObjects(elasticsearchTemplate, Article.class, null, 0, 10,
-	 * "id", new String[] {"title"}, key); List<Article> content =
-	 * selectObjects.getContent(); PageInfo pageInfo=new PageInfo(content);
-	 * m.addAttribute("pageInfo",pageInfo); List<Article> newArticleList =
-	 * articleService.getNewList(6); m.addAttribute("newArticleList",
-	 * newArticleList);
+	 * @RequestMapping("search") public String searchRepository(Model m,String
+	 * key,Integer pageNum) {
 	 *//** 频道 */
 	/*
 	 * List<Channel> channelList = articleService.getChannelList();
 	 * m.addAttribute("channelList", channelList);
+	 *//** 最新文章 **/
+	/*
+	 * List<Article> newArticleList = articleService.getNewList(6);
+	 * m.addAttribute("newArticleList", newArticleList);
 	 *//** 轮播图 *//*
 					 * List<Slide> slideList = slideService.getAll(); m.addAttribute("slideList",
-					 * slideList); return "index"; }
+					 * slideList); if(pageNum==null) { pageNum=1; } long start =
+					 * System.currentTimeMillis(); PageInfo<Article> pageInfo = (PageInfo<Article>)
+					 * HLUtils.findByHighLight(elasticsearchTemplate, Article.class, pageNum, 5, new
+					 * String[] {"title"}, "id", key); //AggregatedPage<Article> selectObjects =
+					 * ESUtils.selectObjects(elasticsearchTemplate, Article.class, null, pageNum-1,
+					 * 4, "id", new String[] {"title"}, key); long end = System.currentTimeMillis();
+					 * System.err.println("查询所耗时长"+(end-start)+"毫秒"); //PageInfo pageInfo=new
+					 * PageInfo(selectObjects.getContent()); pageInfo.setPrePage(pageNum-1);
+					 * pageInfo.setNextPage(pageNum+1); m.addAttribute("pageInfo",pageInfo);
+					 * 
+					 * m.addAttribute("key",key); return "index"; }
 					 */
-	@RequestMapping("search1")
-	public String searchRepository(Model m,String key){
-		AggregatedPage<Article> selectObjects = ESUtils.selectObjects(elasticsearchTemplate, Article.class, null, 0, 6, "id", new String[] {"title"}, key);
-		PageInfo pageInfo=new PageInfo(selectObjects.getContent());
-		m.addAttribute("pageInfo",pageInfo);
+	//高亮查询
+	@RequestMapping("search")
+	public String search(Model m,Integer pageNum,String key){
 		/** 频道 */
 		List<Channel> channelList = articleService.getChannelList();
 		m.addAttribute("channelList", channelList);
@@ -143,10 +167,17 @@ public class ArticleController {
 		List<Slide> slideList = slideService.getAll();
 		m.addAttribute("slideList", slideList);
 		/** 最新文章 **/
+		if(pageNum==null) {
+			pageNum=1;
+		}
 		List<Article> newArticleList = articleService.getNewList(6);
 		m.addAttribute("newArticleList", newArticleList);
+		PageInfo<Article> pageInfo = (PageInfo<Article>) HLUtils.findByHighLight(elasticsearchTemplate, Article.class, pageNum, 3, new String[] {"title"}, "id", key);
+		pageInfo.setPrePage(pageNum-1);
+		pageInfo.setNextPage(pageNum+1);
+		m.addAttribute("pageInfo",pageInfo);
 		m.addAttribute("key",key);
 		return "index";
 	}
-	
+
 }

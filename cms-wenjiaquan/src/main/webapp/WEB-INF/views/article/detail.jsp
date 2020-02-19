@@ -37,6 +37,7 @@
 			<a class="nav-link" href="/user/login">登录</a>
 		</c:if>
 	</nav>
+	<h3 style="color: blue">浏览量${hits}</h3>
 	<div class="container-fluid">
 		<div class="row offset-1" style="margin-top: 15px;">
 			<div class="col-7">

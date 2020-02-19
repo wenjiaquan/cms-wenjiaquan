@@ -11,6 +11,7 @@
 <script type="text/javascript">
 	var channelId = '${channelId}';
 	var cateId = '${cateId}';
+	var key='${key}'
 </script>
 <title>前台首页</title>
 </head>
@@ -54,7 +55,7 @@
 				</ul>
 			</div>
 			<div class="col-6">
-				<form action="/article/search1" method="post">
+				<form action="/article/search" method="post">
 				   <div class="input-group mb-3">
 						<input type="text" name="key" value="${key}" class="form-control"
 							placeholder="请输入要搜索的内容"
@@ -101,7 +102,7 @@
 						  <img src="${item.picture }" class="mr-3" alt="...">
 						  <div class="media-body">
 						    <h4 class="mt-1">
-						    	<a href="/article/${item.id}.html" target="_blank" onclick="xq(item.id)">${item.title }</a>
+						    	<a href="/article/${item.id}.html" target="_blank">${item.title }</a>
 						    </h4>
 						    <p style="color: #999;">${item.nickname }  <fmt:formatDate value="${item.created }" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 						  </div>
@@ -145,14 +146,14 @@
 	<script type="text/javascript">
 	var cId = "${channelId}";
 		function gotoPage(pageNum){
-			if(channelId==''){
+			if(key!=null && key!=''){
+				window.location.href="search?key="+key+"&&pageNum="+pageNum;
+			}
+			else if(channelId==''){
 				window.location.href="/hot/"+pageNum+".html"
 			}else{
 				window.location.href="/"+channelId+"/"+cateId+"/"+pageNum+".html"
 			}
-		}
-		function xq(id) {
-			location="xq?id="+id;
 		}
 	</script>
 </body>

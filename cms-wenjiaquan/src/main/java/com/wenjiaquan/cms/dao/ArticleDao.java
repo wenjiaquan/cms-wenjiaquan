@@ -2,11 +2,13 @@ package com.wenjiaquan.cms.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.wenjiaquan.cms.pojo.Article;
+import com.wenjiaquan.cms.pojo.Collections;
 import com.wenjiaquan.cms.pojo.Comment;
 
 /**   
@@ -162,6 +164,11 @@ public interface ArticleDao {
 	@Select("select * from cms_article where id=#{id}")
 	Article selectArticle(String string);
 	
-	@Update("update cms_article set ll=ll+1 where id=#{id}")
-	void xq(int id);
+	@Update("update cms_article set hits=hits+1 where id=#{id}")
+	void hits(String id);
+	
+	int addcollection(@Param("a")Article a,@Param("url") String url,@Param("time") String time,@Param("tid") int tid);
+	List<Collections> selectcollection(Integer id);
+	@Delete("delete from cms_collection where id=#{id}")
+	int delcollect(Integer id);
 }

@@ -6,6 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.wenjiaquan.cms.pojo.Article;
 import com.wenjiaquan.cms.pojo.Category;
 import com.wenjiaquan.cms.pojo.Channel;
+import com.wenjiaquan.cms.pojo.Collections;
 import com.wenjiaquan.cms.pojo.Comment;
 
 /**   
@@ -150,5 +151,8 @@ public interface ArticleService {
 	void addTousu(Integer articleid);
 	
 	int kafkaSave(Article article);
-	void xq(int parseInt);
+	void hits(String id);
+	int addcollection(Article a, String url, String time,int tid);
+	List<Collections> selectcollection(Integer id);
+	int delcollect(Integer id);
 }
