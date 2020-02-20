@@ -25,5 +25,6 @@ public class StringToDateConverter implements Converter<String,Date>{
 			e.printStackTrace();
 		}
 		return date;
+		
 	}
 }
